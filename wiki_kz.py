@@ -11,9 +11,6 @@ def make(q):
         page, lvl = q.get()
         number_of_sites[lvl] += 1;
         answer = requests.get(page)
-#        if len(page) > 30:
-#            print(page + " " + str(lvl + 1) + " " + str(int(page[30])))
-#        else:
         print(page + " " + str(lvl + 1))
         if len(answer.text) > max_words:
             max_words = len(answer.text)
@@ -27,7 +24,6 @@ def make(q):
             if page not in deep_levels:
                 q.put((page, lvl + 1))
                 deep_levels[page] = lvl + 1
-#    make(q_new, lvl + 1)
     return
 
 if __name__ == "__main__":
@@ -43,10 +39,6 @@ if __name__ == "__main__":
     template = sys.argv[2]
     q = Queue()
     q.put((start_page, 0))
-#    answer = requests.get(start_page)
-#    if answer.status_code != requests.codes.ok:
-#        print("Fail")
-#    print(template)
     template =  r"/wiki/%[a-zA-Z\.0-9/%]+"
     make(q)
     pprint(deep_levels)
@@ -54,11 +46,3 @@ if __name__ == "__main__":
     print(f"Общее количество сайтов: {len(deep_levels)}")
     for i in range(MAXLVL + 1):
         print(f"На {i}-м уровне глубины {number_of_sites[i]} сайтов")
-#    links = re.findall(template, answer.text)
-#    pprint(links)
-#    for k in range(5):
-#        for i in range(len(links)):
-#            links[i] = urllib.parse.unquote(links[i])
-#            if links[i] not in q:
-#                q.put(links[i])
-#    pprint(set(links))
