@@ -12,6 +12,7 @@ def make(q):
         number_of_sites[lvl] += 1;
         answer = requests.get(page)
         print(page + " " + str(lvl + 1))
+        file.write(page + f" {lvl + 1}\n")
         if len(answer.text) > max_words:
             max_words = len(answer.text)
             biggest_site = page
@@ -24,13 +25,12 @@ def make(q):
             if page not in deep_levels:
                 q.put((page, lvl + 1))
                 deep_levels[page] = lvl + 1
-                file.write(page + f" {lvl + 1}\n")
     return
 
 if __name__ == "__main__":
     MAXLVL = 2
     number_of_sites = [0] * (MAXLVL + 1)
-    file = open("wiki_kz.txt", 'w')
+    file = open("wiki_kz.txt", "w")
     max_words = 0
     biggest_site = ""
     deep_levels = {}
