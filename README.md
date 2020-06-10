@@ -1,4 +1,4 @@
-# Crauler
+# Crawler
 ## GETTING STARTED
 ```
   python3 wiki_kz.py <start_link> <template_link_to_find>
