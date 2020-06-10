@@ -24,7 +24,7 @@ def make(q):
             if page not in deep_levels:
                 q.put((page, lvl + 1))
                 deep_levels[page] = lvl + 1
-                file.write(page + "\n")
+                file.write(page + f" {lvl + 1}\n")
     return
 
 if __name__ == "__main__":
