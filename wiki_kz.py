@@ -6,7 +6,7 @@ from queue import Queue
 from pprint import pprint
 
 def make(q):
-    global max_words, biggest_site, number_of_sites
+    global max_words, biggest_site, number_of_sites, file
     while not q.empty():
         page, lvl = q.get()
         number_of_sites[lvl] += 1;
@@ -24,11 +24,13 @@ def make(q):
             if page not in deep_levels:
                 q.put((page, lvl + 1))
                 deep_levels[page] = lvl + 1
+                file.write(page + "\n")
     return
 
 if __name__ == "__main__":
     MAXLVL = 2
     number_of_sites = [0] * (MAXLVL + 1)
+    file = open("wiki_kz.txt", 'w')
     max_words = 0
     biggest_site = ""
     deep_levels = {}
@@ -39,10 +41,11 @@ if __name__ == "__main__":
     template = sys.argv[2]
     q = Queue()
     q.put((start_page, 0))
-    template =  r"/wiki/%[a-zA-Z\.0-9/%]+"
+    template =  r"/wiki/%[a-zA-Z\.0-9/_%]+"
     make(q)
     pprint(deep_levels)
     print("Самый большой сайт " + biggest_site + f" количество символов на этом сайте {max_words}")
     print(f"Общее количество сайтов: {len(deep_levels)}")
     for i in range(MAXLVL + 1):
         print(f"На {i}-м уровне глубины {number_of_sites[i]} сайтов")
+    file.close()
