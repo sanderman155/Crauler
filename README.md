@@ -3,7 +3,7 @@
 ```
   python3 wiki_kz.py <start_link> <template_link_to_find>
 ```
-This program starts from start link and find all link which start with a template link
+This program starts from __start link__ and find all link which start with a __template link__
 
 **Execution example**
 ```
